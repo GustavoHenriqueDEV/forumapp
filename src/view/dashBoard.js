@@ -65,14 +65,41 @@ export default function Dashboard() {
             >
               Create Post
             </Button>
-             <Dialog open={open} onClose={handleClose}>
+             <Dialog sx={{
+              "& .MuiDialog-paper": {
+                 width: "80%",
+                backgroundColor: "#262D34", // Fundo do modal na cor do site
+                color: "white", // Personaliza largura (80% da tela)
+                height: "70%", // Personaliza altura (70% da tela)
+                borderRadius: "16px", // Arredonda as bordas
+              },}}
+              open={open} onClose={handleClose}>
                 <DialogTitle>Create a New Post</DialogTitle>
                 <DialogContent>
-                  <TextField
+                <TextField
                     autoFocus
                     margin="dense"
                     label="Post Title"
                     type="text"
+                    InputLabelProps={{
+                    style: { color: "white" }, // Cor do label (título do campo)
+                        }}
+                        InputProps={{
+                          style: { color: "white", borderColor: "white" }, // Cor do texto digitado
+                        }}
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: "white", // Borda branca
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "#ff8c00", // Borda laranja ao passar o mouse
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#ff8c00", // Borda laranja ao focar
+                            },
+                          },
+                        }}
                     fullWidth
                     variant="outlined"
                   />
@@ -82,8 +109,28 @@ export default function Dashboard() {
                     type="text"
                     fullWidth
                     multiline
-                    rows={4}
-                    variant="outlined"
+                  rows={4}
+                   InputLabelProps={{
+                    style: { color: "white" }, // Cor do label (título do campo)
+                        }}
+                   InputProps={{
+                          style: { color: "white", borderColor: "white" }, // Cor do texto digitado
+                        }}
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: "white", // Borda branca
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "#ff8c00", // Borda laranja ao passar o mouse
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#ff8c00", // Borda laranja ao focar
+                            },
+                          },
+                        }}
+                  variant="outlined"
+                  
                   />
                 </DialogContent>
                 <DialogActions>
