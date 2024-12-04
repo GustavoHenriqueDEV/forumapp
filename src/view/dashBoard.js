@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Card, CardContent, Avatar, IconButton, Grid, Button, Badge } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import TextField from "@mui/material/TextField";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function Dashboard() {
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
+  const handleSubmit = () => {
+    console.log("Post enviado com sucesso")
+    setOpen(false);
+  }
+
   return (
     <Box sx={{ backgroundColor: "#1E1E2F", minHeight: "100vh", padding: 2 }}>
       <Grid container spacing={2}>
@@ -43,11 +59,42 @@ export default function Dashboard() {
               <Typography sx={{ color: "#FFF" }}>Share what's on your mind...</Typography>
             </Box>
             <Button
+              onClick={handleOpen}
               variant="contained"
               sx={{ backgroundColor: "#FF6F00", marginLeft: 2 }}
             >
               Create Post
             </Button>
+             <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Create a New Post</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Post Title"
+                    type="text"
+                    fullWidth
+                    variant="outlined"
+                  />
+                  <TextField
+                    margin="dense"
+                    label="Post Content"
+                    type="text"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="secondary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSubmit} color="primary">
+                    Post
+                  </Button>
+                </DialogActions>
+              </Dialog>
           </Box>
 
           {/* Posts */}
