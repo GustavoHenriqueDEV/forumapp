@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Card, CardContent, Avatar, IconButton, Grid, Button, Badge } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -8,8 +8,44 @@ import TextField from "@mui/material/TextField";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Try } from "@mui/icons-material";
+import { getPosts, createPosts } from "../service/service"; // Ajuste o caminho conforme necessário
+
 
 export default function Dashboard() {
+
+  const [posts, setPosts] = useState([])
+  const [newPost, setNewPost] = useState({
+    titulo: '',
+    tipo: '',
+    conteudo: '',
+    likes: 0,
+    comentario: ''
+  })
+  
+   useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const postsData = await getPosts();
+        setPosts(postsData);
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error);
+      }
+    };
+    fetchPosts();
+   }, []);
+  
+  const handleCreatePost = async () => {
+    try {
+      const createdPost = await createPosts(newPost);
+      setPosts([...posts, createdPost]);  // Atualiza a lista de posts
+      setNewPost({ titulo: '', tipo: '', conteudo: '', likes: 0, comentario: '' });  // Limpa o formulário
+    } catch (error) {
+      console.error("Erro ao criar post:", error);
+    }
+  };
+
+
 
   const [open, setOpen] = useState(false);
 
